@@ -10,8 +10,13 @@ import {
 } from "lucide-react";
 import { Divider } from "../../components/Divider";
 import { Button } from "../../components/button";
+import { useState } from "react";
+import { CreateActivityDialog } from "./create-activity-dialog";
 
 export function TripDetailsPage() {
+  const [isCreateActivityDialogOpen, setIsCreateActivityDialogOpen] =
+    useState(false);
+
   return (
     <div className="max-w-6xl px-6 py-10 mx-auto space-y-8">
       <div className="px-4 h-16 rounded-xl bg-zinc-900 shadow-shape flex items-center justify-between">
@@ -39,10 +44,11 @@ export function TripDetailsPage() {
         <div className="flex-1 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-semibold">Atividades</h2>
-            <Button>
-              <Plus className="size-5" />
-              Cadastrar atividade
-            </Button>
+
+            <CreateActivityDialog
+              open={isCreateActivityDialogOpen}
+              onOpenChange={setIsCreateActivityDialogOpen}
+            />
           </div>
 
           <div className="space-y-8">
