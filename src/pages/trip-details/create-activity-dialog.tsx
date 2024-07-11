@@ -1,4 +1,4 @@
-import { Plus, Tag } from "lucide-react";
+import { Calendar, Plus, Tag } from "lucide-react";
 import { Button } from "../../components/button";
 import {
   Dialog,
@@ -32,15 +32,7 @@ export function CreateActivityDialog({
           </DialogTitle>
 
           <p className="text-sm text-zinc-400">
-            Para concluir a criação da viagem para{" "}
-            <span className="font-semibold text-zinc-100">
-              Florianópolis, Brasil
-            </span>{" "}
-            nas datas de{" "}
-            <span className="font-semibold text-zinc-100">
-              16 a 27 de Agosto de 2024
-            </span>{" "}
-            preencha seus dados abaixo:
+            Todos convidados podem visualizar as atividades.
           </p>
         </div>
 
@@ -51,6 +43,16 @@ export function CreateActivityDialog({
               name="title"
               placeholder="Qual a atividade?"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1 disabled:cursor-not-allowed"
+            />
+          </div>
+
+          <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
+            <Calendar className="text-zinc-400 size-5" />
+            <input
+              type="datetime-local"
+              name="occurs_at"
+              placeholder="Data e Horário da atividade"
+              className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1 disabled:cursor-not-allowed [color-scheme:dark]"
             />
           </div>
 
