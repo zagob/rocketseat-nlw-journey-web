@@ -1,6 +1,8 @@
-import { ArrowRight, Calendar, MapPin, Settings2 } from "lucide-react";
+import { ArrowRight, MapPin, Settings2 } from "lucide-react";
 import { Divider } from "../../../components/Divider";
 import { Button } from "../../../components/button";
+import { useState } from "react";
+import { DatePickerDialog } from "./date-picker-dialog";
 
 interface DestinationAndDateStepProps {
   isGuestsInputOpen: boolean;
@@ -13,6 +15,8 @@ export function DestinationAndDateStep({
   onCloseGuestsInput,
   onOpenGuestsInput,
 }: DestinationAndDateStepProps) {
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
       <div className="flex items-center gap-2 flex-1">
@@ -25,15 +29,20 @@ export function DestinationAndDateStep({
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <DatePickerDialog
+        open={isDatePickerOpen}
+        onOpenChange={setIsDatePickerOpen}
+        isGuestsInputOpen={isGuestsInputOpen}
+      />
+
+      {/* <button
+        onClick={openDatePicker}
+        disabled={isGuestsInputOpen}
+        className="flex items-center gap-2 disabled:cursor-not-allowed"
+      >
         <Calendar className="size-5 text-zinc-400" />
-        <input
-          type="text"
-          disabled={isGuestsInputOpen}
-          placeholder="Quando?"
-          className="bg-transparent text-lg placeholder-zinc-400 w-40 outline-none disabled:cursor-not-allowed"
-        />
-      </div>
+        <span className="text-lg text-zinc-400 w-40 text-left">Quando?</span>
+      </button> */}
 
       <Divider />
 
