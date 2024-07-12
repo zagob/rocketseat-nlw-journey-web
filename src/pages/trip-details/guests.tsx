@@ -1,45 +1,44 @@
 import { CircleCheck, CircleDashed, UserCog } from "lucide-react";
 import { Button } from "../../components/button";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../../lib/axios";
+
+type ParticipantProps = {
+  id: string;
+  name?: string;
+  email: string;
+  is_confirmed: boolean;
+};
 
 export function Guests() {
+  const { tripid } = useParams();
+  const [participants, setParticipants] = useState<ParticipantProps[]>([]);
+
+  useEffect(() => {
+    api.get(`/trips/${tripid}/participants`).then((response) => {
+      setParticipants(response.data.participants);
+    });
+  }, [tripid]);
+
   return (
     <div className="space-y-6">
       <h2 className="font-semibold text-xl">Convidados</h2>
       <div className="space-y-5">
-        {[
-          { name: "Jessica White", email: "jessica.white44@yahoo.com" },
-          {
-            name: "Dr. Rita Pacocha",
-            email: "lacy.stiedemann@gmail.com",
-            enable: true,
-          },
-          {
-            name: "Wilfred Dickens III",
-            email: "marian.hyatt@hotmail.com",
-            enable: true,
-          },
-          {
-            name: "Rodney White",
-            email: "ford_prosacco@hotmail.com",
-          },
-          {
-            name: "Sherman Swaniawski",
-            email: "stanley_emard@yahoo.com",
-          },
-        ].map((item) => (
+        {participants?.map((participant, index) => (
           <div
-            key={item.email}
+            key={participant.id}
             className="flex items-center justify-between gap-4"
           >
             <div className="space-y-1.5">
               <span className="block font-medium text-zinc-100">
-                {item.name}
+                {participant?.name ?? `Convidado ${index}`}
               </span>
               <span className="block font-medium text-sm text-zinc-400 truncate">
-                {item.email}
+                {participant.email}
               </span>
             </div>
-            {item.enable ? (
+            {participant.is_confirmed ? (
               <CircleCheck className="text-lime-400 size-5 shrink-0" />
             ) : (
               <CircleDashed className="text-zinc-400 size-5 shrink-0" />
