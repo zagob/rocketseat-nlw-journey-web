@@ -8,23 +8,22 @@ import {
 import { DateRange, DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import "react-day-picker/dist/style.css";
-import { useState } from "react";
 
 interface DatePickerDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   isGuestsInputOpen: boolean;
+  setEventStartAndEndDates: (dates: DateRange | undefined) => void;
+  eventStartAndEndDates: DateRange | undefined;
 }
 
 export function DatePickerDialog({
   open,
   onOpenChange,
   isGuestsInputOpen,
+  setEventStartAndEndDates,
+  eventStartAndEndDates,
 }: DatePickerDialogProps) {
-  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<
-    DateRange | undefined
-  >();
-
   const displayedDate =
     eventStartAndEndDates &&
     eventStartAndEndDates.from &&

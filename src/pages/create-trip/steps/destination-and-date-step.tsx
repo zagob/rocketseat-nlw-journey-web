@@ -3,17 +3,24 @@ import { Divider } from "../../../components/Divider";
 import { Button } from "../../../components/button";
 import { useState } from "react";
 import { DatePickerDialog } from "./date-picker-dialog";
+import { DateRange } from "react-day-picker";
 
 interface DestinationAndDateStepProps {
   isGuestsInputOpen: boolean;
   onCloseGuestsInput: () => void;
   onOpenGuestsInput: () => void;
+  setDestination: (destination: string) => void;
+  setEventStartAndEndDates: (dates: DateRange | undefined) => void;
+  eventStartAndEndDates: DateRange | undefined;
 }
 
 export function DestinationAndDateStep({
   isGuestsInputOpen,
   onCloseGuestsInput,
   onOpenGuestsInput,
+  setDestination,
+  setEventStartAndEndDates,
+  eventStartAndEndDates,
 }: DestinationAndDateStepProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
@@ -22,6 +29,7 @@ export function DestinationAndDateStep({
       <div className="flex items-center gap-2 flex-1">
         <MapPin className="size-5 text-zinc-400" />
         <input
+          onChange={(event) => setDestination(event.target.value)}
           type="text"
           disabled={isGuestsInputOpen}
           placeholder="Para onde você vai?"
@@ -33,16 +41,9 @@ export function DestinationAndDateStep({
         open={isDatePickerOpen}
         onOpenChange={setIsDatePickerOpen}
         isGuestsInputOpen={isGuestsInputOpen}
+        setEventStartAndEndDates={setEventStartAndEndDates}
+        eventStartAndEndDates={eventStartAndEndDates}
       />
-
-      {/* <button
-        onClick={openDatePicker}
-        disabled={isGuestsInputOpen}
-        className="flex items-center gap-2 disabled:cursor-not-allowed"
-      >
-        <Calendar className="size-5 text-zinc-400" />
-        <span className="text-lg text-zinc-400 w-40 text-left">Quando?</span>
-      </button> */}
 
       <Divider />
 

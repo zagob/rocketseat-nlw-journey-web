@@ -5,26 +5,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/Dialog";
-import { useNavigate } from "react-router-dom";
-import { FormEvent } from "react";
 import { Button } from "../../components/button";
+import { FormEvent } from "react";
 
 interface ConfirmTripDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  setOwnerName: (name: string) => void;
+  setOwnerEmail: (email: string) => void;
+  onCreateTrip: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 export function ConfirmTripDialog({
   open,
   onOpenChange,
+  setOwnerEmail,
+  setOwnerName,
+  onCreateTrip,
 }: ConfirmTripDialogProps) {
-  const navigate = useNavigate();
-
-  function onCreateTrip(event: FormEvent) {
-    event.preventDefault();
-    navigate("/trips/123");
-  }
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
@@ -59,6 +57,7 @@ export function ConfirmTripDialog({
           <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
             <User className="text-zinc-400 size-5" />
             <input
+              onChange={(event) => setOwnerName(event.target.value)}
               name="name"
               placeholder="Seu nome completo"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1 disabled:cursor-not-allowed"
@@ -68,6 +67,7 @@ export function ConfirmTripDialog({
           <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
             <Mail className="text-zinc-400 size-5" />
             <input
+              onChange={(event) => setOwnerEmail(event.target.value)}
               type="email"
               name="email"
               placeholder="Seu e-mail pessoal"
